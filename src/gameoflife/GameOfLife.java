@@ -10,6 +10,7 @@ public class GameOfLife {
 
     private static int ROW_SIZE = 20;
     private static int COL_SIZE = 20;
+    private static final int PAUSE_MILLIS = 1000;
 
     private static int ALIVE_CHANCE = (int)(.3 * (ROW_SIZE * COL_SIZE));
 
@@ -31,6 +32,15 @@ public class GameOfLife {
             }
             
             System.out.println(getBoardContents());
+            
+            try
+            {
+                Thread.sleep(PAUSE_MILLIS);
+            }
+            catch(InterruptedException e)
+            {
+                
+            }
         }
     }
 
@@ -56,17 +66,20 @@ public class GameOfLife {
         }
     }
     
-    private static void calculateState(int row, int col) {
+    private static void calculateState(int row, int col) 
+    {
         int aliveNeighborCount = countAliveNeighbors(row, col);
         
         boolean tempState = false;
-        if (boardCopy[row][col]) {
+        if (boardCopy[row][col]) 
+        {
             switch (aliveNeighborCount) 
             {
                 case 2:
                 case 3:
                     tempState = true;
                     break;
+                
             }
         } 
         else 
@@ -83,205 +96,24 @@ public class GameOfLife {
     private static int countAliveNeighbors(int row, int col) 
     {
         int aliveCount = 0;
-
-        if (row == 0) 
+        
+        for(int i = row - 1; i < row + 2 ; i++)
         {
-            if (col == 0) 
+            for(int j = col - 1; j < col + 2 ; j++)
             {
-                if (getState(row, col + 1)) 
+                if(row == i && col == j) continue;
+                
+                if(i < 0 || i >= ROW_SIZE) continue;
+                
+                if(j < 0 || j >= COL_SIZE) continue;
+                
+                if(getState(i, j))
                 {
                     aliveCount++;
                 }
-                if (getState(row + 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-            } 
-            else if (col == COL_SIZE - 1) 
-            {
-                if (getState(row, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col - 1)) 
-                {
-                    aliveCount++;
-                }
-            } 
-            else 
-            {
-                if (getState(row, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row, col + 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-            }
-        } 
-        else if (col == 0) 
-        {
-            if(row == ROW_SIZE - 1)
-            {
-                if (getState(row - 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row, col + 1)) 
-                {
-                    aliveCount++;
-                }
-            }
-            else
-            {
-                if (getState(row - 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row, col + 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row + 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-            }
-        } 
-        else if (row == ROW_SIZE - 1) 
-        {
-            if (col == COL_SIZE - 1) 
-            {
-                if (getState(row, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col)) 
-                {
-                    aliveCount++;
-                }
-            }
-            else
-            {
-                if (getState(row, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row, col + 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col - 1)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col)) 
-                {
-                    aliveCount++;
-                }
-                if (getState(row - 1, col + 1)) 
-                {
-                    aliveCount++;
-                }
-            }
-
-        } 
-        else if (col == COL_SIZE - 1) 
-        {
-            if (getState(row - 1, col)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row - 1, col - 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row, col - 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row + 1, col)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row + 1, col - 1)) 
-            {
-                aliveCount++;
             }
         }
-        else
-        {
-            if (getState(row - 1, col - 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row - 1, col)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row - 1, col + 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row, col - 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row, col + 1)) 
-            {
-                aliveCount++;
-            }
-             if (getState(row + 1, col - 1)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row + 1, col)) 
-            {
-                aliveCount++;
-            }
-            if (getState(row + 1, col + 1)) 
-            {
-                aliveCount++;
-            }
-        }
-
+        
         return aliveCount;
     }
 
