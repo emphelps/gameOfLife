@@ -19,9 +19,6 @@ public class GameOfLife {
 
     public static void main(String[] args) {
         initializeBoard();
-        generateAliveCells();
-        generateBoard();
-        makeBoardCopy();
         
         while(true)
         {
@@ -38,47 +35,28 @@ public class GameOfLife {
 
     }
 
-    private static void initializeBoard() {
+    private static void initializeBoard() 
+    {
         board = new boolean[ROW_SIZE][COL_SIZE];
         boardCopy = new boolean[ROW_SIZE][COL_SIZE];
-    }
-
-    private static void generateAliveCells() {
+        
         Random rand = new Random();
-
-        for (int i = 0; i < ALIVE_CHANCE; i++) {
+        for (int i = 0; i < ALIVE_CHANCE; i++) 
+        {
             int randomAliveI = rand.nextInt(ROW_SIZE);
             int randomAliveJ = rand.nextInt(COL_SIZE);
 
-            if (board[randomAliveI][randomAliveJ]) {
+            if (board[randomAliveI][randomAliveJ]) 
+            {
                 i--;
-            } else {
+            } 
+            else 
+            {
                 board[randomAliveI][randomAliveJ] = true;
             }
         }
     }
-
-    private static void makeBoardCopy() {
-        for (int i = 0; i < ROW_SIZE; i++) {
-            System.arraycopy(board[i], 0, boardCopy[i], 0, COL_SIZE);
-        }
-    }
-
-    private static void generateBoard() {
-        int aliveCount = 0;
-
-        for (int i = 0; i < ROW_SIZE; i++) {
-            for (int j = 0; j < COL_SIZE; j++) {
-                if (board[i][j]) {
-                    continue;
-                }
-
-                board[i][j] = false;
-            }
-        }
-    }
     
-
     private static void calculateState(int row, int col) {
         int aliveNeighborCount = countAliveNeighbors(row, col);
 
