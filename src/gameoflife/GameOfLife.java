@@ -13,13 +13,11 @@ public class GameOfLife {
     private static final int PAUSE_MILLIS = 1000;
 
     private static int ALIVE_CHANCE = (int)(.3 * (ROW_SIZE * COL_SIZE));
-
-    private static boolean[][] board;
-    private static boolean[][] boardCopy;
   
     public static void main(String[] args) 
     {
-        initializeBoard();
+        boolean[][] board = initializeBoard();
+        boolean[][] boardCopy = board;
         
         while(true)
         {
@@ -28,11 +26,11 @@ public class GameOfLife {
             {
                 for (int j = 0; j < COL_SIZE; j++) 
                 {
-                    calculateState(i, j);
+                    calculateState(board, boardCopy, i, j);
                 }
             }
             
-            System.out.println(getBoardContents());
+            System.out.println(getBoardContents(board));
             
             try
             {
@@ -45,10 +43,9 @@ public class GameOfLife {
         }
     }
 
-    private static void initializeBoard() 
+    private static boolean[][] initializeBoard() 
     {
-        board = new boolean[ROW_SIZE][COL_SIZE];
-        boardCopy = new boolean[ROW_SIZE][COL_SIZE];
+        boolean[][] board = new boolean[ROW_SIZE][COL_SIZE];
         
         Random rand = new Random();
         for (int i = 0; i < ALIVE_CHANCE; i++) 
@@ -65,11 +62,13 @@ public class GameOfLife {
                 board[randomAliveI][randomAliveJ] = true;
             }
         }
+        
+        return board;
     }
     
-    private static void calculateState(int row, int col) 
+    private static void calculateState(boolean[][] board, boolean[][] boardCopy, int row, int col) 
     {
-        int aliveNeighborCount = countAliveNeighbors(row, col);
+        int aliveNeighborCount = countAliveNeighbors(boardCopy, row, col);
         
         boolean tempState = false;
         if (boardCopy[row][col]) 
@@ -93,7 +92,7 @@ public class GameOfLife {
         board[row][col] = tempState;
     }
 
-    private static int countAliveNeighbors(int row, int col) 
+    private static int countAliveNeighbors(boolean[][] boardCopy, int row, int col) 
     {
         int aliveCount = 0;
         
@@ -117,7 +116,7 @@ public class GameOfLife {
         return aliveCount;
     }
 
-    private static String getBoardContents() 
+    private static String getBoardContents(boolean[][] board) 
     {
         String boardContents = "";
         
