@@ -72,7 +72,7 @@ public class GameOfLife {
         int aliveNeighborCount = countAliveNeighbors(row, col);
         
         boolean tempState = false;
-        if (getState(row, col)) 
+        if (boardCopy[row][col]) 
         {
             switch (aliveNeighborCount) 
             {
@@ -107,7 +107,7 @@ public class GameOfLife {
                 
                 if(j < 0 || j >= COL_SIZE) continue;
                 
-                if(getState(i, j))
+                if(boardCopy[i][j])
                 {
                     aliveCount++;
                 }
@@ -115,11 +115,6 @@ public class GameOfLife {
         }
         
         return aliveCount;
-    }
-
-    private static boolean getState(int row, int col) 
-    {
-        return boardCopy[row][col];
     }
 
     private static String getBoardContents() 
