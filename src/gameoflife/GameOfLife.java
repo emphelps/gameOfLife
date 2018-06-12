@@ -26,7 +26,7 @@ public class GameOfLife {
             {
                 for (int j = 0; j < COL_SIZE; j++) 
                 {
-                    calculateState(board, boardCopy, i, j);
+                    board[i][j] = calculateState(board, boardCopy, i, j);
                 }
             }
             
@@ -66,7 +66,7 @@ public class GameOfLife {
         return board;
     }
     
-    private static void calculateState(boolean[][] board, boolean[][] boardCopy, int row, int col) 
+    private static boolean calculateState(boolean[][] board, boolean[][] boardCopy, int row, int col) 
     {
         int aliveNeighborCount = countAliveNeighbors(boardCopy, row, col);
         
@@ -89,7 +89,7 @@ public class GameOfLife {
             }
         }
         
-        board[row][col] = tempState;
+        return tempState;
     }
 
     private static int countAliveNeighbors(boolean[][] boardCopy, int row, int col) 
