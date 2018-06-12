@@ -59,18 +59,14 @@ public class GameOfLife {
     
     private static void calculateState(int row, int col) {
         int aliveNeighborCount = countAliveNeighbors(row, col);
-
+        
+        boolean tempState = false;
         if (boardCopy[row][col]) {
             switch (aliveNeighborCount) 
             {
-                case 0:
-                case 1:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    board[row][col] = false;
+                case 2:
+                case 3:
+                    tempState = true;
                     break;
             }
         } 
@@ -78,9 +74,11 @@ public class GameOfLife {
         {
             if (aliveNeighborCount == 3) 
             {
-                board[row][col] = true;
+                tempState = true;
             }
         }
+        
+        board[row][col] = tempState;
     }
 
     private static int countAliveNeighbors(int row, int col) 
