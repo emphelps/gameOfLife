@@ -21,6 +21,7 @@ public class GameOfLife {
         
         while(true)
         {
+            boardCopy = board;
             for (int i = 0; i < ROW_SIZE; i++) 
             {
                 for (int j = 0; j < COL_SIZE; j++) 
@@ -28,7 +29,7 @@ public class GameOfLife {
                     calculateState(i, j);
                 }
             }
-            boardCopy = board;
+            
             System.out.println(getBoardContents());
         }
     }
