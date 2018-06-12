@@ -22,12 +22,19 @@ public class GameOfLife {
         generateAliveCells();
         generateBoard();
         makeBoardCopy();
-        //printBoard();
-
-        System.out.println(getBoardContents());
-
-        makeBoardCopy();
-        //printBoard();
+        
+        while(true)
+        {
+            for (int i = 0; i < ROW_SIZE; i++) 
+            {
+                for (int j = 0; j < COL_SIZE; j++) 
+                {
+                    calculateState(i, j);
+                }
+            }
+            boardCopy = board;
+            System.out.println(getBoardContents());
+        }
 
     }
 
@@ -312,8 +319,10 @@ public class GameOfLife {
     {
         String boardContents = "";
         
-        for (int i = 0; i < ROW_SIZE; i++) {
-            for (int j = 0; j < COL_SIZE; j++) {
+        for (int i = 0; i < ROW_SIZE; i++) 
+        {
+            for (int j = 0; j < COL_SIZE; j++) 
+            {
                 calculateState(i, j);
                 //System.out.print(board[i][j] ? "*" : " ");
                 boardContents += (board[i][j] ? "*" : " ").toString();
