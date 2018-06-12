@@ -286,7 +286,7 @@ public class GameOfLife {
 
     private static boolean getState(int row, int col) 
     {
-        return board[row][col];
+        return boardCopy[row][col];
     }
 
     private static String getBoardContents() 
