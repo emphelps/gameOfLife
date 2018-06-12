@@ -11,7 +11,7 @@ public class GameOfLife {
     private static int ROW_SIZE = 20;
     private static int COL_SIZE = 20;
 
-    private static int ALIVE_CHANCE = (int) (Math.random() * (ROW_SIZE * COL_SIZE));
+    private static int ALIVE_CHANCE = (int)(.3 * (ROW_SIZE * COL_SIZE));
 
     private static boolean[][] board;
     private static boolean[][] boardCopy;
@@ -24,13 +24,7 @@ public class GameOfLife {
         makeBoardCopy();
         //printBoard();
 
-        for (int i = 0; i < ROW_SIZE; i++) {
-            for (int j = 0; j < COL_SIZE; j++) {
-                calculateState(i, j);
-                System.out.print(board[i][j] ? "*" : " ");
-            }
-            System.out.println();
-        }
+        System.out.println(getBoardContents());
 
         makeBoardCopy();
         //printBoard();
@@ -77,16 +71,6 @@ public class GameOfLife {
         }
     }
     
-    private static void boardIteration(int row, int col)
-    {
-        for (int i = 0; i < ROW_SIZE; i++) {
-            for (int j = 0; j < COL_SIZE; j++) {
-                calculateState(i, j);
-
-            }
-            System.out.println();
-        }
-    }
 
     private static void calculateState(int row, int col) {
         int aliveNeighborCount = countAliveNeighbors(row, col);
@@ -324,23 +308,20 @@ public class GameOfLife {
         return board[row][col];
     }
 
-    private static void printBoard() 
+    private static String getBoardContents() 
     {
-        for (int i = 0; i < ROW_SIZE; i++) 
-        {
-            for (int j = 0; j < COL_SIZE; j++) 
-            {
-                if (board[i][j]) 
-                {
-                    System.out.print("*");
-                } 
-                else 
-                {
-                    System.out.print(" ");
-                }
+        String boardContents = "";
+        
+        for (int i = 0; i < ROW_SIZE; i++) {
+            for (int j = 0; j < COL_SIZE; j++) {
+                calculateState(i, j);
+                //System.out.print(board[i][j] ? "*" : " ");
+                boardContents += (board[i][j] ? "*" : " ").toString();
             }
-            System.out.println();
+            boardContents += "\n";
         }
+        
+        return boardContents;
     }
 
 }
