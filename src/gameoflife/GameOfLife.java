@@ -15,8 +15,7 @@ public class GameOfLife {
 
     private static boolean[][] board;
     private static boolean[][] boardCopy;
-    private static boolean[][] aliveCell;
-
+  
     public static void main(String[] args) {
         initializeBoard();
         
@@ -32,7 +31,6 @@ public class GameOfLife {
             boardCopy = board;
             System.out.println(getBoardContents());
         }
-
     }
 
     private static void initializeBoard() 
@@ -299,9 +297,7 @@ public class GameOfLife {
         {
             for (int j = 0; j < COL_SIZE; j++) 
             {
-                calculateState(i, j);
-                //System.out.print(board[i][j] ? "*" : " ");
-                boardContents += (board[i][j] ? "*" : " ").toString();
+                boardContents += (board[i][j] ? "*" : " ");
             }
             boardContents += "\n";
         }
