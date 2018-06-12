@@ -17,7 +17,8 @@ public class GameOfLife {
     private static boolean[][] board;
     private static boolean[][] boardCopy;
   
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         initializeBoard();
         
         while(true)
@@ -71,7 +72,7 @@ public class GameOfLife {
         int aliveNeighborCount = countAliveNeighbors(row, col);
         
         boolean tempState = false;
-        if (boardCopy[row][col]) 
+        if (getState(row, col)) 
         {
             switch (aliveNeighborCount) 
             {
@@ -79,7 +80,6 @@ public class GameOfLife {
                 case 3:
                     tempState = true;
                     break;
-                
             }
         } 
         else 
@@ -137,5 +137,4 @@ public class GameOfLife {
         
         return boardContents;
     }
-
 }
